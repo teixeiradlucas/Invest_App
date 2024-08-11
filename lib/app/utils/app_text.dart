@@ -41,7 +41,7 @@ class AppText {
 
   static Text body(
     String text, {
-    Color color = AppColors.blackColor,
+    Color color = AppColors.whiteColor,
   }) {
     return Text(
       text,
