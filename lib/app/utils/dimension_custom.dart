@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const gap = SizedBox.square(dimension: kDefaultPadding);
 const gapS = SizedBox.square(dimension: kPaddingS);
 const gapM = SizedBox.square(dimension: kPaddingM);
+const gap = SizedBox.square(dimension: kDefaultPadding);
 const gapXL = SizedBox.square(dimension: kPaddingXL);
 
 const double kPaddingXS = 2;
