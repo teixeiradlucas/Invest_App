@@ -47,9 +47,9 @@ class AppText {
       text,
       style: TextStyle(
         fontFamily: AppFonts.inter,
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
-        height: 1,
+        height: 1.5,
         color: color,
       ),
       textAlign: TextAlign.start,
