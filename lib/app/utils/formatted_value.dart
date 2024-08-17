@@ -9,7 +9,16 @@ String formattedPrice(double value) {
 String formattedPercentage(double percentage) {
   var percentageString = percentage.toStringAsFixed(1);
   percentageString = percentageString.replaceAll('.', ',');
-  percentageString = '$percentageString %';
+  percentageString = '$percentageString%';
 
   return percentageString;
+}
+
+String variationAccount(double priceOpen, double priceClose) {
+  final result = ((priceClose - priceOpen) / priceOpen) * 100;
+  var resultString = result.toStringAsFixed(1);
+  resultString = resultString.replaceAll('.', ',');
+  resultString = '$resultString%';
+
+  return resultString;
 }
