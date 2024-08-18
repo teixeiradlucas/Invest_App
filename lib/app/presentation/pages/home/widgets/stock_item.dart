@@ -21,10 +21,11 @@ class StockItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final variation = variationAccount(priceOpen, price);
+    return InkWell(
       onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -40,7 +41,12 @@ class StockItem extends StatelessWidget {
             ),
             AppText.body(ticket),
             AppText.body(formattedPrice(price)),
-            AppText.body(variationAccount(priceOpen, price)),
+            if (variation.contains('-'))
+              AppText.bodyNegativeValue(variation)
+            else if (variation == '0,0%')
+              AppText.body(variation)
+            else
+              AppText.bodyPositiveValue(variation),
             AppText.body(formattedPercentage(dy)),
           ],
         ),
