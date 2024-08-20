@@ -5,6 +5,7 @@ import 'package:invest_app/app/data/repositories/stock_repository.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/app_bar_widget.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/stock_item.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/stock_title.dart';
+import 'package:invest_app/app/presentation/widgets/line_chart_widget.dart';
 import 'package:invest_app/app/utils/themes/app_colors.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,9 +19,10 @@ class HomePage extends StatelessWidget {
         children: [
           const AppBarWidget(),
           Container(
-            color: AppColors.whiteColor,
-            width: 500,
+            color: AppColors.blackColor,
+            width: MediaQuery.of(context).size.width,
             height: 200,
+            child: const LineChartWidget(),
           ),
           const StockTitle(),
           FutureBuilder<List<StockModel>>(
