@@ -21,11 +21,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? _selectedTicket;
+  List<StockModel>? _stocks;
 
   @override
   void initState() {
     super.initState();
     _selectedTicket = 'BBAS3';
+    _loadStocks();
+  }
+
+  Future<void> _loadStocks() async {
+    final stocks = await getStocks(HttpClient());
+    setState(() {
+      _stocks = stocks;
+      _selectedTicket ??= stocks
+          .firstWhere(
+            (stock) => stock.ticket == 'BBAS3',
+            orElse: () => stocks.first,
+          )
+          .ticket;
+    });
   }
 
   @override
@@ -34,44 +49,21 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           const AppBarWidget(),
-          HistoricalStockWidget(ticket: _selectedTicket!),
-          FutureBuilder<List<StockModel>>(
-            future: getStocks(HttpClient()),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return buildLoading();
-              } else if (snapshot.hasError) {
-                return buildError(snapshot.error);
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return buildNoData();
-              } else {
-                return StockDropdown(
-                  stocks: snapshot.data!,
-                  selectedTicket: _selectedTicket,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedTicket = value;
-                    });
-                  },
-                );
-              }
-            },
-          ),
+          if (_selectedTicket != null)
+            HistoricalStockWidget(ticket: _selectedTicket!),
+          if (_stocks != null)
+            StockDropdown(
+              stocks: _stocks!,
+              selectedTicket: _selectedTicket,
+              onChanged: (value) {
+                setState(() {
+                  _selectedTicket = value;
+                });
+              },
+            ),
           const StockTitle(),
-          FutureBuilder<List<StockModel>>(
-            future: getStocks(HttpClient()),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return buildLoading();
-              } else if (snapshot.hasError) {
-                return buildError(snapshot.error);
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return buildNoData();
-              } else {
-                return StockList(stocks: snapshot.data!);
-              }
-            },
-          ),
+          if (_stocks != null) StockList(stocks: _stocks!),
+          if (_stocks == null) buildLoading(),
         ],
       ),
     );
