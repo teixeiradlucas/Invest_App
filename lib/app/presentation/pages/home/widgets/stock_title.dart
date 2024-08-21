@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invest_app/app/utils/app_text.dart';
+import 'package:invest_app/app/utils/strings/app_strings.dart';
 import 'package:invest_app/app/utils/themes/app_colors.dart';
 
 class StockTitle extends StatelessWidget {
@@ -18,10 +19,10 @@ class StockTitle extends StatelessWidget {
             const SizedBox(
               width: 50,
             ),
-            AppText.body('TICKET'),
-            AppText.body('VALOR'),
-            AppText.body('VARIAÇÃO'),
-            AppText.body('DY'),
+            AppText.body(AppStrings.ticket),
+            AppText.body(AppStrings.value),
+            AppText.body(AppStrings.variation),
+            AppText.body(AppStrings.dy),
           ],
         ),
       ),

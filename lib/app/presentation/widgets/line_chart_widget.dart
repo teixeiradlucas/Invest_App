@@ -36,22 +36,14 @@ class LineChartWidget extends StatelessWidget {
           ),
         ),
         lineBarsData: [
-          //#TODO:simplificar sports
           LineChartBarData(
-            spots: [
-              FlSpot(0, filteredHistorical[10].close),
-              FlSpot(1, filteredHistorical[9].close),
-              FlSpot(2, filteredHistorical[8].close),
-              FlSpot(3, filteredHistorical[7].close),
-              FlSpot(4, filteredHistorical[6].close),
-              FlSpot(5, filteredHistorical[5].close),
-              FlSpot(6, filteredHistorical[4].close),
-              FlSpot(7, filteredHistorical[3].close),
-              FlSpot(8, filteredHistorical[2].close),
-              FlSpot(9, filteredHistorical[1].close),
-              FlSpot(10, filteredHistorical[0].close),
-            ],
-            //isCurved: true,
+            spots: List.generate(
+              11,
+              (index) => FlSpot(
+                index.toDouble(),
+                filteredHistorical[10 - index].close,
+              ),
+            ),
             color: Colors.white,
             barWidth: 3,
             belowBarData: BarAreaData(
@@ -77,31 +69,10 @@ class Titles {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 35,
-            //#TODO:simplificar
             getTitlesWidget: (value, meta) {
-              switch (value.toInt()) {
-                case 0:
-                  return AppText.detail(formatDate(historical[10].date));
-                case 1:
-                  return AppText.detail(formatDate(historical[9].date));
-                case 2:
-                  return AppText.detail(formatDate(historical[8].date));
-                case 3:
-                  return AppText.detail(formatDate(historical[7].date));
-                case 4:
-                  return AppText.detail(formatDate(historical[6].date));
-                case 5:
-                  return AppText.detail(formatDate(historical[5].date));
-                case 6:
-                  return AppText.detail(formatDate(historical[4].date));
-                case 7:
-                  return AppText.detail(formatDate(historical[3].date));
-                case 8:
-                  return AppText.detail(formatDate(historical[2].date));
-                case 9:
-                  return AppText.detail(formatDate(historical[1].date));
-                case 10:
-                  return AppText.detail(formatDate(historical[0].date));
+              final index = value.toInt();
+              if (index >= 0 && index <= 10) {
+                return AppText.detail(formatDate(historical[10 - index].date));
               }
               return const Text('');
             },

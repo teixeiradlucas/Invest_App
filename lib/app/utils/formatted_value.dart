@@ -29,3 +29,8 @@ String formatDate(String date) {
   final dateTime = DateTime.parse(date);
   return DateFormat('dd/MM').format(dateTime);
 }
+
+String formatDateComplete(String date) {
+  final dateTime = DateTime.parse(date);
+  return DateFormat('dd/MM/yyyy').format(dateTime);
+}

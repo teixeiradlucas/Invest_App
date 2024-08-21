@@ -6,7 +6,6 @@ import 'package:invest_app/app/presentation/pages/home/widgets/app_bar_widget.da
 import 'package:invest_app/app/presentation/pages/home/widgets/stock_item.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/stock_title.dart';
 import 'package:invest_app/app/utils/commom.dart';
-import 'package:invest_app/app/utils/themes/app_colors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,16 +13,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
       body: Column(
         children: [
           const AppBarWidget(),
-          Container(
-            color: AppColors.blackColor,
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            //#TODO:Procurar um widget para ocupar espaço
-          ),
           const StockTitle(),
           FutureBuilder<List<StockModel>>(
             // ignore: discarded_futures

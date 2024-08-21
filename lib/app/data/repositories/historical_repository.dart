@@ -3,6 +3,7 @@ import 'package:invest_app/app/data/api_url.dart';
 import 'package:invest_app/app/data/http/http_client.dart';
 import 'package:invest_app/app/data/models/historical_model.dart';
 import 'package:invest_app/app/data/models/stock_model.dart';
+import 'package:invest_app/app/utils/strings/app_strings.dart';
 
 Future<List<HistoricalModel>> getHistorical(
   HttpClient client,
@@ -14,8 +15,9 @@ Future<List<HistoricalModel>> getHistorical(
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(response.body);
-    if (jsonResponse is Map && jsonResponse.containsKey('historicals')) {
-      final historicalsList = jsonResponse['historicals'] as List;
+    if (jsonResponse is Map &&
+        jsonResponse.containsKey(AppStrings.historicals)) {
+      final historicalsList = jsonResponse[AppStrings.historicals] as List;
       return historicalsList
           .map(
             (historical) =>
@@ -23,11 +25,11 @@ Future<List<HistoricalModel>> getHistorical(
           )
           .toList();
     } else {
-      throw Exception('Formato JSON inesperado');
+      throw Exception(AppStrings.jsonUnexpected);
     }
   } else if (response.statusCode == 404) {
-    throw Exception('A url informada não é válida');
+    throw Exception(AppStrings.urlInvalid);
   } else {
-    throw Exception('Não foi possível carregar os dados');
+    throw Exception(AppStrings.dataError);
   }
 }
