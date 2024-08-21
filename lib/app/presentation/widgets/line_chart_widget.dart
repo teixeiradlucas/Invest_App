@@ -1,18 +1,25 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:invest_app/app/data/models/historical_model.dart';
+import 'package:invest_app/app/utils/app_text.dart';
+import 'package:invest_app/app/utils/formatted_value.dart';
 
 class LineChartWidget extends StatelessWidget {
-  const LineChartWidget({super.key});
+  const LineChartWidget({
+    required this.historical,
+    super.key,
+  });
+
+  final List<HistoricalModel> historical;
 
   @override
   Widget build(BuildContext context) {
+    final filteredHistorical = historical.reversed.toList();
     return LineChart(
       LineChartData(
         minX: 0,
-        maxX: 11,
-        minY: 0,
-        maxY: 70000,
-        titlesData: Titles.getTitleData(),
+        maxX: 10,
+        titlesData: Titles.getTitleData(filteredHistorical),
         gridData: FlGridData(
           getDrawingHorizontalLine: (value) {
             return FlLine(
@@ -29,22 +36,22 @@ class LineChartWidget extends StatelessWidget {
           ),
         ),
         lineBarsData: [
+          //#TODO:simplificar sports
           LineChartBarData(
-            spots: const [
-              FlSpot(0, 30000),
-              FlSpot(1, 10000),
-              FlSpot(2, 15000),
-              FlSpot(3, 30000),
-              FlSpot(4, 40000),
-              FlSpot(5, 35000),
-              FlSpot(6, 50000),
-              FlSpot(7, 30000),
-              FlSpot(8, 40000),
-              FlSpot(9, 45000),
-              FlSpot(10, 30000),
-              FlSpot(11, 35000),
+            spots: [
+              FlSpot(0, filteredHistorical[10].close),
+              FlSpot(1, filteredHistorical[9].close),
+              FlSpot(2, filteredHistorical[8].close),
+              FlSpot(3, filteredHistorical[7].close),
+              FlSpot(4, filteredHistorical[6].close),
+              FlSpot(5, filteredHistorical[5].close),
+              FlSpot(6, filteredHistorical[4].close),
+              FlSpot(7, filteredHistorical[3].close),
+              FlSpot(8, filteredHistorical[2].close),
+              FlSpot(9, filteredHistorical[1].close),
+              FlSpot(10, filteredHistorical[0].close),
             ],
-            //isCurved: false,
+            //isCurved: true,
             color: Colors.white,
             barWidth: 3,
             belowBarData: BarAreaData(
@@ -64,40 +71,37 @@ class LineChartWidget extends StatelessWidget {
 }
 
 class Titles {
-  static FlTitlesData getTitleData() => FlTitlesData(
+  static FlTitlesData getTitleData(List<HistoricalModel> historical) =>
+      FlTitlesData(
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 35,
+            //#TODO:simplificar
             getTitlesWidget: (value, meta) {
               switch (value.toInt()) {
+                case 0:
+                  return AppText.detail(formatDate(historical[10].date));
+                case 1:
+                  return AppText.detail(formatDate(historical[9].date));
                 case 2:
-                  return const Text(
-                    '2020',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  );
+                  return AppText.detail(formatDate(historical[8].date));
+                case 3:
+                  return AppText.detail(formatDate(historical[7].date));
+                case 4:
+                  return AppText.detail(formatDate(historical[6].date));
                 case 5:
-                  return const Text(
-                    '2021',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  );
+                  return AppText.detail(formatDate(historical[5].date));
+                case 6:
+                  return AppText.detail(formatDate(historical[4].date));
+                case 7:
+                  return AppText.detail(formatDate(historical[3].date));
                 case 8:
-                  return const Text(
-                    '2022',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  );
+                  return AppText.detail(formatDate(historical[2].date));
+                case 9:
+                  return AppText.detail(formatDate(historical[1].date));
+                case 10:
+                  return AppText.detail(formatDate(historical[0].date));
               }
               return const Text('');
             },
@@ -107,71 +111,6 @@ class Titles {
           sideTitles: SideTitles(
             showTitles: true,
             getTitlesWidget: (value, meta) {
-              switch (value.toInt()) {
-                case 10000:
-                  return const Text(
-                    '10k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-                case 20000:
-                  return const Text(
-                    '20k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-                case 30000:
-                  return const Text(
-                    '30k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-                case 40000:
-                  return const Text(
-                    '40k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-                case 50000:
-                  return const Text(
-                    '50k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-                case 60000:
-                  return const Text(
-                    '60k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-                case 70000:
-                  return const Text(
-                    '70k',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  );
-              }
               return const Text('');
             },
             reservedSize: 35,
