@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:invest_app/app/data/models/stock_model.dart';
+import 'package:invest_app/app/presentation/pages/stock/stock_page.dart';
 import 'package:invest_app/app/utils/app_text.dart';
 import 'package:invest_app/app/utils/formatted_value.dart';
 import 'package:invest_app/app/utils/images/app_images_stocks.dart';
 
 class StockItem extends StatelessWidget {
   const StockItem({
-    required this.ticket,
-    required this.name,
-    required this.price,
-    required this.dy,
-    required this.priceOpen,
+    required this.stock,
     super.key,
   });
 
-  final String ticket;
-  final String name;
-  final double price;
-  final double dy;
-  final double priceOpen;
+  final StockModel stock;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
+    final variation = variationAccount(stock.priceOpen, stock.price);
+    return InkWell(
+      onTap: () async {
+        await Navigator.push(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (context) => StockPage(stock: stock),
+          ),
+        );
+      },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -34,14 +36,19 @@ class StockItem extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.fitHeight,
                 child: Image.asset(
-                  ticketImages[ticket] ?? AppImagesStocks.defaultImage,
+                  ticketImages[stock.ticket] ?? AppImagesStocks.defaultImage,
                 ),
               ),
             ),
-            AppText.body(ticket),
-            AppText.body(formattedPrice(price)),
-            AppText.body(variationAccount(priceOpen, price)),
-            AppText.body(formattedPercentage(dy)),
+            AppText.body(stock.ticket),
+            AppText.body(formattedPrice(stock.price)),
+            if (variation.contains('-'))
+              AppText.bodyNegativeValue(variation)
+            else if (variation == '0,0%')
+              AppText.body(variation)
+            else
+              AppText.bodyPositiveValue(variation),
+            AppText.body(formattedPercentage(stock.dividendYield)),
           ],
         ),
       ),

@@ -11,25 +11,28 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 5, bottom: 20),
-        child: Row(
-          children: [
-            gap,
-            const CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage(AppImages.profileImg),
-            ),
-            gap,
-            AppText.h2(
-              '${AppStrings.hello} ${AppStrings.name}',
-            ),
-            const Spacer(),
-            DrawerButton(
-              onPressed: () => Scaffold.of(context).openDrawer(),
-              color: AppColors.whiteColor,
-            ),
-          ],
+      child: ColoredBox(
+        color: AppColors.grayBlackColor,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 20),
+          child: Row(
+            children: [
+              gap,
+              const CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage(AppImages.profileImg),
+              ),
+              gap,
+              AppText.h2(
+                '${AppStrings.hello} ${AppStrings.name}',
+              ),
+              const Spacer(),
+              DrawerButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                color: AppColors.whiteColor,
+              ),
+            ],
+          ),
         ),
       ),
     );

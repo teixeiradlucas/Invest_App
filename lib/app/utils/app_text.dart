@@ -55,4 +55,52 @@ class AppText {
       textAlign: TextAlign.start,
     );
   }
+
+  static Text detail(
+    String text,
+  ) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+        color: Colors.grey,
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
+
+  static Text bodyPositiveValue(
+    String text, {
+    Color color = AppColors.greenColor,
+  }) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontFamily: AppFonts.inter,
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+        height: 1.5,
+        color: color,
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
+
+  static Text bodyNegativeValue(
+    String text, {
+    Color color = AppColors.redColor,
+  }) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontFamily: AppFonts.inter,
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+        height: 1.5,
+        color: color,
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
 }

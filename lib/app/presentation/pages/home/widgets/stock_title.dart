@@ -9,7 +9,7 @@ class StockTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      color: AppColors.blackColor,
+      color: AppColors.grayBlackColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
         child: Row(

@@ -1,19 +1,26 @@
 import 'dart:convert';
 import 'package:invest_app/app/data/api_url.dart';
 import 'package:invest_app/app/data/http/http_client.dart';
+import 'package:invest_app/app/data/models/historical_model.dart';
 import 'package:invest_app/app/data/models/stock_model.dart';
 
-Future<List<StockModel>> getStocks(HttpClient client) async {
+Future<List<HistoricalModel>> getHistorical(
+  HttpClient client,
+  StockModel stock,
+) async {
   final response = await client.get(
-    url: apiUrlStocks,
+    url: apiUrlHistoricals + stock.ticket,
   );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(response.body);
-    if (jsonResponse is Map && jsonResponse.containsKey('stocks')) {
-      final stocksList = jsonResponse['stocks'] as List;
-      return stocksList
-          .map((stock) => StockModel.fromJson(stock as Map<String, dynamic>))
+    if (jsonResponse is Map && jsonResponse.containsKey('historicals')) {
+      final historicalsList = jsonResponse['historicals'] as List;
+      return historicalsList
+          .map(
+            (historical) =>
+                HistoricalModel.fromJson(historical as Map<String, dynamic>),
+          )
           .toList();
     } else {
       throw Exception('Formato JSON inesperado');
