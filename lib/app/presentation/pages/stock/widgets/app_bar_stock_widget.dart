@@ -44,8 +44,8 @@ class AppBarStockWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppText.h2(
-                    stock.name.length > 20
-                        ? '${stock.name.substring(0, 20)}...'
+                    stock.name.length > 16
+                        ? '${stock.name.substring(0, 16)}...'
                         : stock.name,
                   ),
                   Row(
