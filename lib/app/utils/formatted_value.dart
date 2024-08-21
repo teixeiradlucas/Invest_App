@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 String formattedPrice(double value) {
   var valueString = value.toStringAsFixed(2);
   valueString = valueString.replaceAll('.', ',');
@@ -21,4 +23,9 @@ String variationAccount(double priceOpen, double priceClose) {
   resultString = '$resultString%';
 
   return resultString;
+}
+
+String formatDate(String date) {
+  final dateTime = DateTime.parse(date);
+  return DateFormat('dd/MM').format(dateTime);
 }
