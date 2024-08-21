@@ -17,8 +17,7 @@ class DividendWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
+    return Expanded(
       child: FutureBuilder(
         // ignore: discarded_futures
         future: getDividend(
