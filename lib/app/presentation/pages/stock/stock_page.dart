@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invest_app/app/data/models/stock_model.dart';
 import 'package:invest_app/app/presentation/pages/stock/widgets/app_bar_stock_widget.dart';
+import 'package:invest_app/app/presentation/pages/stock/widgets/dividend_widget.dart';
 import 'package:invest_app/app/presentation/pages/stock/widgets/historical_widget.dart';
 import 'package:invest_app/app/presentation/pages/stock/widgets/rectangle_widget.dart';
 import 'package:invest_app/app/utils/dimension_custom.dart';
@@ -50,6 +51,7 @@ class StockPage extends StatelessWidget {
             ],
           ),
           HistoricalWidget(stock: stock),
+          DividendWidget(stock: stock),
         ],
       ),
     );
