@@ -27,10 +27,6 @@ class AppBarWidget extends StatelessWidget {
                 '${AppStrings.hello} ${AppStrings.name}',
               ),
               const Spacer(),
-              DrawerButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                color: AppColors.whiteColor,
-              ),
             ],
           ),
         ),
