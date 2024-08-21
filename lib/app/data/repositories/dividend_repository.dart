@@ -3,6 +3,7 @@ import 'package:invest_app/app/data/api_url.dart';
 import 'package:invest_app/app/data/http/http_client.dart';
 import 'package:invest_app/app/data/models/dividend_model.dart';
 import 'package:invest_app/app/data/models/stock_model.dart';
+import 'package:invest_app/app/utils/strings/app_strings.dart';
 
 Future<List<DividendModel>> getDividend(
   HttpClient client,
@@ -14,8 +15,8 @@ Future<List<DividendModel>> getDividend(
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(response.body);
-    if (jsonResponse is Map && jsonResponse.containsKey('dividends')) {
-      final dividendsList = jsonResponse['dividends'] as List;
+    if (jsonResponse is Map && jsonResponse.containsKey(AppStrings.dividends)) {
+      final dividendsList = jsonResponse[AppStrings.dividends] as List;
       return dividendsList
           .map(
             (dividend) =>
@@ -23,11 +24,11 @@ Future<List<DividendModel>> getDividend(
           )
           .toList();
     } else {
-      throw Exception('Formato JSON inesperado');
+      throw Exception(AppStrings.jsonUnexpected);
     }
   } else if (response.statusCode == 404) {
-    throw Exception('A url informada não é válida');
+    throw Exception(AppStrings.urlInvalid);
   } else {
-    throw Exception('Não foi possível carregar os dados');
+    throw Exception(AppStrings.dataError);
   }
 }

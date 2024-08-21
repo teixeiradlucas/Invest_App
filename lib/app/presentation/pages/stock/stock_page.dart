@@ -6,6 +6,7 @@ import 'package:invest_app/app/presentation/pages/stock/widgets/historical_widge
 import 'package:invest_app/app/presentation/pages/stock/widgets/rectangle_widget.dart';
 import 'package:invest_app/app/utils/dimension_custom.dart';
 import 'package:invest_app/app/utils/formatted_value.dart';
+import 'package:invest_app/app/utils/strings/app_strings.dart';
 
 class StockPage extends StatelessWidget {
   const StockPage({
@@ -25,12 +26,12 @@ class StockPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RectangleWidget(
-                type: 'VALOR',
+                type: AppStrings.value,
                 value: formattedPrice(stock.price),
               ),
               gap,
               RectangleWidget(
-                type: 'DY',
+                type: AppStrings.dy,
                 value: formattedPercentage(stock.dividendYield),
               ),
             ],
@@ -40,12 +41,12 @@ class StockPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RectangleWidget(
-                type: 'MAXIMA(12M)',
+                type: AppStrings.high12m,
                 value: formattedPrice(stock.lastYearHigh),
               ),
               gap,
               RectangleWidget(
-                type: 'MINIMA(12M)',
+                type: AppStrings.low12m,
                 value: formattedPrice(stock.lastYearLow),
               ),
             ],
