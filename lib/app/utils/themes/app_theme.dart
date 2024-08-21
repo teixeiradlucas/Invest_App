@@ -8,19 +8,19 @@ class AppTheme {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all<Color>(
-              AppColors.brownCoffeeColor,
+              AppColors.whiteColor,
             ),
           ),
         ),
         colorSchemeSeed: AppColors.brownCoffeeColor,
         scaffoldBackgroundColor: AppColors.backgroundColor,
         iconTheme: const IconThemeData(
-          color: AppColors.blackColor,
+          color: AppColors.whiteColor,
           // size: 24,
         ),
         appBarTheme: const AppBarTheme(
-          actionsIconTheme: IconThemeData(color: AppColors.blackColor),
-          iconTheme: IconThemeData(color: AppColors.blackColor),
+          actionsIconTheme: IconThemeData(color: AppColors.whiteColor),
+          iconTheme: IconThemeData(color: AppColors.whiteColor),
           backgroundColor: AppColors.backgroundColor,
           elevation: 0,
         ),

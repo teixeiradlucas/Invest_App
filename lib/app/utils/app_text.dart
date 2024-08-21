@@ -56,6 +56,20 @@ class AppText {
     );
   }
 
+  static Text detail(
+    String text,
+  ) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+        color: Colors.grey,
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
+
   static Text bodyPositiveValue(
     String text, {
     Color color = AppColors.greenColor,
