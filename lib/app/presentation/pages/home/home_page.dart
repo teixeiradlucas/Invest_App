@@ -5,7 +5,7 @@ import 'package:invest_app/app/data/repositories/stock_repository.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/app_bar_widget.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/stock_item.dart';
 import 'package:invest_app/app/presentation/pages/home/widgets/stock_title.dart';
-import 'package:invest_app/app/presentation/widgets/line_chart_widget.dart';
+import 'package:invest_app/app/utils/commom.dart';
 import 'package:invest_app/app/utils/themes/app_colors.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
             color: AppColors.blackColor,
             width: MediaQuery.of(context).size.width,
             height: 200,
-            child: const LineChartWidget(),
+            //#TODO:Procurar um widget para ocupar espaço
           ),
           const StockTitle(),
           FutureBuilder<List<StockModel>>(
@@ -30,11 +30,11 @@ class HomePage extends StatelessWidget {
             future: getStocks(HttpClient()),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return _buildLoading();
+                return buildLoading();
               } else if (snapshot.hasError) {
-                return _buildError(snapshot.error);
+                return buildError(snapshot.error);
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return _buildNoData();
+                return buildNoData();
               } else {
                 return _buildList(snapshot.data!);
               }
@@ -45,23 +45,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildLoading() {
-    return const Center(child: CircularProgressIndicator());
-  }
-
-  Widget _buildError(Object? error) {
-    return Center(child: Text('Error: $error'));
-  }
-
-  Widget _buildNoData() {
-    return const Center(child: Text('No stocks found'));
-  }
-
   Widget _buildList(List<StockModel> stocks) {
     final filteredStocks = stocks
         .where(
           (stock) =>
-              stock.name.isNotEmpty && stock.price != 0 && stock.volume > 0,
+              stock.name.isNotEmpty && stock.price != 0 && stock.volume > 10000,
         )
         .toList();
 
@@ -71,11 +59,7 @@ class HomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           final stock = filteredStocks[index];
           return StockItem(
-            ticket: stock.ticket,
-            name: stock.name,
-            price: stock.price,
-            dy: stock.dividendYield,
-            priceOpen: stock.priceOpen,
+            stock: stock,
           );
         },
       ),
